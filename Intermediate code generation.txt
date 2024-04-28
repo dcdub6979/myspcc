@@ -1,0 +1,44 @@
+
+def generate_three_address_code(expression):
+    tokens = expression.split()
+    stack = []
+
+    for token in tokens:
+        if token.isdigit():
+            stack.append(token)
+        elif token in {'+', '-', '*', '/'}:
+            if len(stack) < 2:
+                print("Error: Insufficient operands on stack.")
+                return None
+
+            op2 = stack.pop()
+            op1 = stack.pop()
+            temp = f't{temp_count}'
+            code.append(f'{temp} = {op1} {token} {op2}')
+            stack.append(temp)
+            temp_count += 1
+        else:
+            print(f"Error: Invalid token '{token}'")
+            return None
+
+    if len(stack) != 1:
+        print("Error: Insufficient operators")
+        return None
+
+    return code
+
+# Example usage with built-in input expressions:
+expressions = [
+    "2 * (3 + 4)",
+    "a = b + c * d",
+    "5 * (6 + 7)",
+    "x = y * z - 10",
+    input("Enter expression: ")
+]
+
+for expression in expressions:
+    code = generate_three_address_code(expression)
+    if code:
+        print("\nGenerated Three Address Code for expression:", expression)
+        for line in code:
+            print(line)
